@@ -1,0 +1,27 @@
+{
+  "name": "graphql",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon app.js --exec babel-node --preset es2015",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/behluluysal/graphql-training.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/behluluysal/graphql-training/issues"
+  },
+  "homepage": "https://github.com/behluluysal/graphql-training#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "graphql-yoga": "^1.18.3",
+    "nodemon": "^2.0.4"
+  }
+}
