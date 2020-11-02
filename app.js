@@ -1,4 +1,8 @@
 const { GraphQLServer } = require('graphql-yoga');
+const connectDB = require('./config/db');
+
+//connect db
+connectDB();
 
 const Users = [
   {
@@ -12,7 +16,7 @@ const Users = [
     city:'İstanbul'
   },
   {
-    id:1,
+    id:3,
     username:'Caner',
     city:'Sivas'
   }
@@ -26,11 +30,16 @@ const Posts = [
   },
   {
     id:2,
-    text:'Yasin text',
+    text:'Behlul text 2',
+    userId:1
+  },
+  {
+    id:4,
+    text:'Yasin text2',
     userId:2
   },
   {
-    id:1,
+    id:3,
     text:'Caner text',
     userId:3
   }
@@ -58,14 +67,15 @@ const typeDefs = `
     text:String!,
     userId:ID!
   }
-  type Combined{
+  type Postid{
     id: ID!,
-    username:String!,
-    city:String!,
-    posts : Post
+  }
+  type Combined{
+    users : User!
+    posts : [Post!]!
   }
  
-`;
+`; //combined içi User çağır
 
 const resolvers = {
   Query:{
@@ -82,15 +92,17 @@ const resolvers = {
       return Posts;
     },
     getUserPosts: (parent, args)=>{
-      return Users.find(getUser=>getUser.id == args.id);
+      return Users.find(x=>x.id == args.id);
     }
   },
   Combined:{
     posts: (parent, args)=>{
-      return Posts.find(getpOST=>getpOST.userId == parent.id);
+      return Posts.filter(x=>x.userId == parent.id);
     },
+    users:(parent, args)=>{
+      return Users.find(x=>x.id == parent.id);
   }
-
+}
 };
 
 const server = new GraphQLServer({ typeDefs, resolvers });
